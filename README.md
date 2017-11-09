@@ -21,5 +21,9 @@ There are several demonstration files available in this template.
 
 - FusionController.merge(policy: String)
 
-  A POST request to merge 1 or N entities using an specific fusion policy
+  A POST request to merge 1 or N entities using an specific fusion policy e.g., http://localhost:9000/fusion/union
+  An array of tuples containing the URIs to be merged should be send in the POST body
   
+  ```javascript
+[ { "uri1": "uri_1" , "uri2" : "uri_2" } ]
+``` 
