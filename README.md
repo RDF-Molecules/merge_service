@@ -24,6 +24,9 @@ There are several demonstration files available in this template.
   A POST request to merge 1 or N entities using an specific fusion policy e.g., http://localhost:9000/fusion/union
   An array of tuples containing the URIs to be merged should be send in the POST body
   
-  ```javascript
-[ { "uri1": "uri_1" , "uri2" : "uri_2" } ]
+```javascript
+[
+  { "uri1": "uri_1" , "uri2" : "uri_2" },
+  { "uri1": "uri_A" , "uri2" : "uri_B" }
+]
 ``` 
