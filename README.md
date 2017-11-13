@@ -17,6 +17,12 @@ And then go to http://localhost:9000 to see the running web application.
 
 There are several demonstration files available in this template.
 
+## Configuration
+To load the models to be merged, you need to configure the following parameters in application.config file:
+
+* fusion.model_1.location = "<model 1>"
+* fusion.model_2.location = "<model 2 (Optional)>"
+
 ## Controllers
 
 - FusionController.merge(policy: String)
