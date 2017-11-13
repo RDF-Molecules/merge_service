@@ -25,8 +25,10 @@ There are several demonstration files available in this template.
   An array of tuples containing the URIs to be merged should be send in the POST body
   
 ```javascript
-[
-  { "uri1": "uri_1" , "uri2" : "uri_2" },
-  { "uri1": "uri_A" , "uri2" : "uri_B" }
-]
+{
+ "tasks" : [  
+ 	{ "uri1": "http://iasis/vocab/01" , "uri2" : "http://iasis/vocab/28381756" },
+ 	{ "uri1": "http://iasis/vocab/annotation1" , "uri2" : "http://iasis/vocab/annotation4" }
+ ]
+}
 ``` 
