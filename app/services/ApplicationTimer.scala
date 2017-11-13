@@ -2,8 +2,12 @@ package services
 
 import java.time.{Clock, Instant}
 import javax.inject._
+
+import com.typesafe.config.ConfigFactory
 import play.api.Logger
 import play.api.inject.ApplicationLifecycle
+import utils.dataintegration.MergeOperator
+
 import scala.concurrent.Future
 
 /**
@@ -26,6 +30,13 @@ class ApplicationTimer @Inject() (clock: Clock, appLifecycle: ApplicationLifecyc
   // This code is called when the application starts.
   private val start: Instant = clock.instant
   Logger.info(s"ApplicationTimer demo: Starting application at $start.")
+
+  Logger.info(s"Loading Models")
+  MergeOperator.initialize(
+    ConfigFactory.load.getString("fusion.model_1.location"),
+    ConfigFactory.load.getString("fusion.model_2.location")
+  )
+  Logger.info(s"Loading Models Complete")
 
   // When the application starts, register a stop hook with the
   // ApplicationLifecycle object. The code inside the stop hook will

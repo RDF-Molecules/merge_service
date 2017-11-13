@@ -4,13 +4,13 @@ import org.apache.jena.query.{QueryExecutionFactory, QueryFactory}
 import org.apache.jena.rdf.model.{Model, ModelFactory}
 import org.apache.jena.update.{UpdateAction, UpdateFactory}
 import play.Logger
+import services.minte.merge._
 
-sealed trait MergeResponse
-case class MergeError(errorMessage: String) extends MergeResponse
-case class MergeSuccess(model: Model) extends MergeResponse
-case class NothingToMerge(message: String) extends MergeResponse
 
-object MergeOperator {
+object MergeOperator extends FusionTrait {
+
+  private var model : Model = null
+  private var isInit = false
 
   /*
   Resource Similarity Molecule (RSM) structure
@@ -34,6 +34,10 @@ object MergeOperator {
     QueryExecutionFactory.create(query, model).execConstruct()
   }
 
+  override def merge(uri_1: String, uri_2: String, fusionPolicy: String) : MergeResponse = {
+    merge(uri_1, uri_2, this.model, unionPolicy)
+  }
+
   def merge(uri_1: String, uri_2: String, model: Model, fusionPolicy: (Model,Model) => Model) : MergeResponse = {
     Logger.info("Starting merge operator")
     try {
@@ -46,13 +50,13 @@ object MergeOperator {
       val merged = fusionPolicy(rms_1, rms_2)
 
       //Applying some tricks
-      val model_1 = deleteRms(uri_1, model)
-      val model_2 = deleteRms(uri_2, model_1)
+      //val model_1 = deleteRms(uri_1, model)
+      //val model_2 = deleteRms(uri_2, model_1)
 
-      val finalModel = ModelFactory.createDefaultModel()
-      finalModel.add(model_2.add(merged))
+      //val finalModel = ModelFactory.createDefaultModel()
+      //finalModel.add(model_2.add(merged))
 
-      MergeSuccess(finalModel)
+      MergeSuccess(merged)
 
     } catch {
       case e: Exception => MergeError(e.getMessage)
@@ -88,6 +92,24 @@ object MergeOperator {
       """.stripMargin)
     UpdateAction.execute(query, model)
     model
+  }
+
+  override def initialize(model_1 :String, model_2 : String) = {
+    //Loading models
+    model = ModelFactory.createDefaultModel
+    model.read(model_1)
+    //Loading model 2 if defined
+    if (!model_2.isEmpty) {
+      val m2 = ModelFactory.createDefaultModel
+      m2.read(model_2)
+      model.add(m2)
+      m2.close()
+    }
+    this.isInit = true
+  }
+
+  override def isInitialized() : Boolean = {
+    this.isInit
   }
 
 }

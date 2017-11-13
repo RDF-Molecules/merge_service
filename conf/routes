@@ -13,4 +13,4 @@ GET     /message                    controllers.AsyncController.message
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 #MINTE Services
-POST    /fusion/:policy                      controllers.MergeController.merge(policy: String)
+POST    /fusion/:policy                      controllers.FusionController.merge(policy: String)
