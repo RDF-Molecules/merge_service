@@ -32,6 +32,9 @@ class FusionController @Inject()(cc: ControllerComponents, actorSystem: ActorSys
   implicit val mergeTaskReader = Json.reads[MergeTask]
   implicit val mergeTaskWrites = Json.writes[MergeTask]
 
+  implicit val initTaskReader = Json.reads[InitTask]
+  implicit val initTaskWrites = Json.writes[InitTask]
+  
   /**
    * Creates an Action that returns a plain text message after a delay
    * of 1 second.
@@ -59,6 +62,26 @@ class FusionController @Inject()(cc: ControllerComponents, actorSystem: ActorSys
     }
   }
 
+  def set () = Action { request =>
+    Logger.info(s"Set new locations")
+    // LOADING MODELSSSSSS
+    val json = request.body.asJson
+
+    json match {
+      case Some(value) =>
+        val elem = value.as[InitTask]
+        MergeOperator.initialize(elem.location1,elem.location2) 
+      case None => BadRequest("No json")
+    }
+
+    //MergeOperator.initialize(location1,location2)
+    //Logger.info("asdadsasdasdasd")
+
+    Ok("Setting location")
+  }
+
 }
 
 case class MergeTask (uri1: Option[String], uri2: Option[String])
+
+case class InitTask (location1: String, location2: String)
