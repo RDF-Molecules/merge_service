@@ -1,0 +1,89 @@
+2018-09-11 23:24:11,038 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-3 - ApplicationTimer demo: Starting application at 2018-09-11T21:24:11.037Z.
+2018-09-11 23:24:11,038 [INFO] from application in play-dev-mode-akka.actor.default-dispatcher-3 - Loading Models
+2018-09-11 23:24:12,397 [ERROR] from application in play-dev-mode-akka.actor.default-dispatcher-3 - 
+
+! @798cooodk - Internal server error, for (GET) [/] ->
+ 
+play.api.UnexpectedException: Unexpected exception[CreationException: Unable to create injector, see the following errors:
+
+1) Error injecting constructor, org.apache.jena.riot.RiotNotFoundException: Not found: C://DIC/WorkspaceRdfMolecules/merge_service/data/test1.nt
+  at services.ApplicationTimer.<init>(ApplicationTimer.scala:28)
+  at Module.configure(Module.scala:23) (via modules: com.google.inject.util.Modules$OverrideModule -> Module)
+  while locating services.ApplicationTimer
+
+1 error]
+	at play.core.server.DevServerStart$$anon$1.reload(DevServerStart.scala:186)
+	at play.core.server.DevServerStart$$anon$1.get(DevServerStart.scala:124)
+	at play.core.server.AkkaHttpServer.handleRequest(AkkaHttpServer.scala:222)
+	at play.core.server.AkkaHttpServer.$anonfun$createServerBinding$1(AkkaHttpServer.scala:138)
+	at akka.stream.impl.fusing.MapAsync$$anon$25.onPush(Ops.scala:1194)
+	at akka.stream.impl.fusing.GraphInterpreter.processPush(GraphInterpreter.scala:519)
+	at akka.stream.impl.fusing.GraphInterpreter.processEvent(GraphInterpreter.scala:482)
+	at akka.stream.impl.fusing.GraphInterpreter.execute(GraphInterpreter.scala:378)
+	at akka.stream.impl.fusing.GraphInterpreterShell.runBatch(ActorGraphInterpreter.scala:585)
+	at akka.stream.impl.fusing.GraphInterpreterShell$AsyncInput.execute(ActorGraphInterpreter.scala:469)
+	at akka.stream.impl.fusing.GraphInterpreterShell.processEvent(ActorGraphInterpreter.scala:560)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.akka$stream$impl$fusing$ActorGraphInterpreter$$processEvent(ActorGraphInterpreter.scala:742)
+	at akka.stream.impl.fusing.ActorGraphInterpreter$$anonfun$receive$1.applyOrElse(ActorGraphInterpreter.scala:757)
+	at akka.actor.Actor.aroundReceive(Actor.scala:517)
+	at akka.actor.Actor.aroundReceive$(Actor.scala:515)
+	at akka.stream.impl.fusing.ActorGraphInterpreter.aroundReceive(ActorGraphInterpreter.scala:667)
+	at akka.actor.ActorCell.receiveMessage(ActorCell.scala:590)
+	at akka.actor.ActorCell.invoke(ActorCell.scala:559)
+	at akka.dispatch.Mailbox.processMailbox(Mailbox.scala:257)
+	at akka.dispatch.Mailbox.run(Mailbox.scala:224)
+	at akka.dispatch.Mailbox.exec(Mailbox.scala:234)
+	at akka.dispatch.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260)
+	at akka.dispatch.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339)
+	at akka.dispatch.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979)
+	at akka.dispatch.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107)
+Caused by: com.google.inject.CreationException: Unable to create injector, see the following errors:
+
+1) Error injecting constructor, org.apache.jena.riot.RiotNotFoundException: Not found: C://DIC/WorkspaceRdfMolecules/merge_service/data/test1.nt
+  at services.ApplicationTimer.<init>(ApplicationTimer.scala:28)
+  at Module.configure(Module.scala:23) (via modules: com.google.inject.util.Modules$OverrideModule -> Module)
+  while locating services.ApplicationTimer
+
+1 error
+	at com.google.inject.internal.Errors.throwCreationExceptionIfErrorsExist(Errors.java:470)
+	at com.google.inject.internal.InternalInjectorCreator.injectDynamically(InternalInjectorCreator.java:184)
+	at com.google.inject.internal.InternalInjectorCreator.build(InternalInjectorCreator.java:110)
+	at com.google.inject.Guice.createInjector(Guice.java:99)
+	at com.google.inject.Guice.createInjector(Guice.java:84)
+	at play.api.inject.guice.GuiceBuilder.injector(GuiceInjectorBuilder.scala:185)
+	at play.api.inject.guice.GuiceApplicationBuilder.build(GuiceApplicationBuilder.scala:137)
+	at play.api.inject.guice.GuiceApplicationLoader.load(GuiceApplicationLoader.scala:21)
+	at play.core.server.DevServerStart$$anon$1.$anonfun$reload$3(DevServerStart.scala:174)
+	at play.utils.Threads$.withContextClassLoader(Threads.scala:21)
+	at play.core.server.DevServerStart$$anon$1.reload(DevServerStart.scala:171)
+	... 24 common frames omitted
+Caused by: org.apache.jena.riot.RiotNotFoundException: Not found: C://DIC/WorkspaceRdfMolecules/merge_service/data/test1.nt
+	at org.apache.jena.riot.RDFParser.openTypedInputStream(RDFParser.java:340)
+	at org.apache.jena.riot.RDFParser.parseURI(RDFParser.java:247)
+	at org.apache.jena.riot.RDFParser.parse(RDFParser.java:241)
+	at org.apache.jena.riot.RDFParserBuilder.parse(RDFParserBuilder.java:417)
+	at org.apache.jena.riot.RDFDataMgr.parseFromURI(RDFDataMgr.java:890)
+	at org.apache.jena.riot.RDFDataMgr.read(RDFDataMgr.java:221)
+	at org.apache.jena.riot.RDFDataMgr.read(RDFDataMgr.java:190)
+	at org.apache.jena.riot.RDFDataMgr.read(RDFDataMgr.java:120)
+	at org.apache.jena.riot.RDFDataMgr.read(RDFDataMgr.java:111)
+	at org.apache.jena.riot.adapters.RDFReaderRIOT.read(RDFReaderRIOT.java:76)
+	at org.apache.jena.rdf.model.impl.ModelCom.read(ModelCom.java:263)
+	at utils.dataintegration.MergeOperator$.initialize(MergeOperator.scala:100)
+	at services.ApplicationTimer.<init>(ApplicationTimer.scala:37)
+	at services.ApplicationTimer$$FastClassByGuice$$55d40385.newInstance(<generated>)
+	at com.google.inject.internal.DefaultConstructionProxyFactory$FastClassProxy.newInstance(DefaultConstructionProxyFactory.java:89)
+	at com.google.inject.internal.ConstructorInjector.provision(ConstructorInjector.java:111)
+	at com.google.inject.internal.ConstructorInjector.construct(ConstructorInjector.java:90)
+	at com.google.inject.internal.ConstructorBindingImpl$Factory.get(ConstructorBindingImpl.java:268)
+	at com.google.inject.internal.ProviderToInternalFactoryAdapter$1.call(ProviderToInternalFactoryAdapter.java:46)
+	at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1092)
+	at com.google.inject.internal.ProviderToInternalFactoryAdapter.get(ProviderToInternalFactoryAdapter.java:40)
+	at com.google.inject.internal.SingletonScope$1.get(SingletonScope.java:194)
+	at com.google.inject.internal.InternalFactoryToProviderAdapter.get(InternalFactoryToProviderAdapter.java:41)
+	at com.google.inject.internal.InternalInjectorCreator$1.call(InternalInjectorCreator.java:205)
+	at com.google.inject.internal.InternalInjectorCreator$1.call(InternalInjectorCreator.java:199)
+	at com.google.inject.internal.InjectorImpl.callInContext(InjectorImpl.java:1085)
+	at com.google.inject.internal.InternalInjectorCreator.loadEagerSingletons(InternalInjectorCreator.java:199)
+	at com.google.inject.internal.InternalInjectorCreator.injectDynamically(InternalInjectorCreator.java:180)
+	... 33 common frames omitted
